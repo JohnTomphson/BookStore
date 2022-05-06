@@ -7,13 +7,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
 public class UserController implements CrudController {
     final UserService userService;
 
-//    @PreAuthorize("hasRole('Admin')")
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
     @Override
     public ResponseEntity getAll() {
@@ -21,27 +23,21 @@ public class UserController implements CrudController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 201 : 409).body(apiResponse);
     }
 
-//    @PreAuthorize("hasRole('Admin')")
+   @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/{id}")
-    @Override
-    public ResponseEntity getById(@PathVariable Integer id) {
+   @Override
+   public ResponseEntity getById(@PathVariable Long id) {
         ApiResponse apiResponse = userService.getById(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 404).body(apiResponse);
     }
-//
-//    @PostMapping("/{id}")
-//    public ResponseEntity add(@RequestBody Userss user) {
-//        ApiResponse apiResponse = userService.add(user);
-//        return ResponseEntity.status(apiResponse.isSuccess() ? 201 : 409).body(apiResponse);
-//    }
-//
-//
 
     /**
      * We do not use this method temporarily
+     *
      * @param id
      * @return
      */
+    @PreAuthorize("hasAuthority('ADMIN')")
     @Override
     public ResponseEntity delete(@PathVariable Integer id) {
         ApiResponse apiResponse = userService.delete(id);

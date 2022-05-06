@@ -6,7 +6,8 @@ public interface Crud {
 
     ApiResponse getAll();
 
-    ApiResponse getById(Integer id);
+    ApiResponse getById(Long id);
 
-    ApiResponse delete(Integer id);
+
+    ApiResponse delete(Long id);
 }

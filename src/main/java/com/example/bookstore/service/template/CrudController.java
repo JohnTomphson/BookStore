@@ -5,8 +5,8 @@ import org.springframework.http.ResponseEntity;
 public interface CrudController {
     ResponseEntity getAll();
 
-    ResponseEntity getById(Integer id);
+    ResponseEntity getById(Long id);
 
-    ResponseEntity delete(Integer id);
+    ResponseEntity delete(Long id);
 
 }

@@ -59,7 +59,12 @@
         <artifactId>lombok</artifactId>
         <optional>true</optional>
     </dependency>
-    <dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+        <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-test</artifactId>
         <scope>test</scope>
@@ -83,6 +88,14 @@
                     <artifactId>lombok</artifactId>
                 </exclude>
             </excludes>
+        </configuration>
+    </plugin>
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+            <source>17</source>
+            <target>17</target>
         </configuration>
     </plugin>
 </plugins>

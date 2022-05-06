@@ -30,7 +30,7 @@ public class UserService implements Crud {
     }
 
     @Override
-    public ApiResponse getById(Integer id) {
+    public ApiResponse getById(Long id) {
         Optional<Userss> usersOptional = userRepo.findById(id);
         return usersOptional.map(orders -> new ApiResponse(true, "Success", orders))
                 .orElseGet(() -> new ApiResponse(false, "Not Found"));
@@ -43,7 +43,7 @@ public class UserService implements Crud {
     }
 
     @Override
-    public ApiResponse delete(Integer id) {
+    public ApiResponse delete(Long id) {
         Optional<Userss> optionalUsers = userRepo.findById(id);
         if (!optionalUsers.isPresent())
             return ApiResponse.builder().message("This User isn't present").success(false).build();
@@ -57,11 +57,13 @@ public class UserService implements Crud {
 
     public Userss addForDataloader(
             String userName,
+            String password,
             String firstName, String middleName,
             String lastName, List<Role> roleList) {
 
         Userss users = new Userss();
-        users.setName(userName);
+        users.setUsername(userName);
+        users.setPassword(password);
         users.setFirstName(firstName);
         users.setMiddleName(middleName);
         users.setLastName(lastName);

@@ -1,5 +1,11 @@
 package com.example.bookstore.models.enums;
 
+import org.springframework.context.annotation.Bean;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public enum Sinf {
     BIRINCHI_SINF("1"),
     IKKINCHI_SINF("2"),
@@ -17,4 +23,14 @@ public enum Sinf {
     Sinf(String classs) {
         this.classs = classs;
     }
+    @Bean
+    public List<Sinf> sinfList() {
+        List<Sinf> sinfs = new ArrayList<Sinf>
+                (
+                        Arrays.asList(Sinf.BIRINCHI_SINF, Sinf.IKKINCHI_SINF,Sinf.UCHINCI_SINF,
+                                Sinf.TORTINCHI_SINF,Sinf.BESHINCHI_SINF,Sinf.OLTINCHI_SINF,Sinf.YETTINCHI_SINF,
+                                Sinf.SAKKIZINCHI_SINF,Sinf.TUQQIZINCHI_SINF,Sinf.UNINCHI_SINF,Sinf.UNBIRINCHI_SINF));
+        return sinfs;
+    }
+
 }

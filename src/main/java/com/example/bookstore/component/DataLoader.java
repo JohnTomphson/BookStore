@@ -4,7 +4,6 @@ import com.example.bookstore.models.Book;
 import com.example.bookstore.models.Role;
 import com.example.bookstore.models.Userss;
 import com.example.bookstore.models.enums.*;
-import com.example.bookstore.payload.enumLists.Collections;
 import com.example.bookstore.repository.BookRepo;
 import com.example.bookstore.repository.RoleRepository;
 import com.example.bookstore.repository.UserRepo;
@@ -14,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -24,7 +24,11 @@ import java.util.Set;
 @Component
 @RequiredArgsConstructor
 public class DataLoader implements CommandLineRunner {
-    final Collections collections;
+    /**
+     * Problem: Delete book
+     */
+    final PasswordEncoder passwordEncoder;
+
     final UserService userService;
     final UserRepo userRepo;
     final RoleRepository roleRepository;
@@ -35,7 +39,7 @@ public class DataLoader implements CommandLineRunner {
 
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args){
 
         if (mode.equals("always")) {
 
@@ -54,7 +58,9 @@ public class DataLoader implements CommandLineRunner {
             List<Role> superAdmin = new ArrayList<>(Arrays.asList(super_admin));
 
             Userss userService1 = userService.addForDataloader(
+
                     "admin123@gmail.com",
+                    passwordEncoder.encode( "123"),
                     "admin",
                     "admin2",
                     "admin3",
@@ -63,27 +69,12 @@ public class DataLoader implements CommandLineRunner {
 
             Userss userss = userService.addForDataloader(
                     "superAdmin@gmail.com",
+                    passwordEncoder.encode( "root1234"),
                     "super",
                     "admin",
                     "admin123",
                     superAdmin);
             userRepo.save(userss);
-
-            Book book1Geografiya = bookService.addForDataloaderBook
-                    (Sinf.BESHINCHI_SINF, Category.GEOGRAFIYA,
-                            "2010 yili",
-                            "Saydullayev",
-                            Language.UZ);
-
-            Book book2 = bookService.addForDataloaderBook
-                    (Sinf.BESHINCHI_SINF,Category.BIOLOGIYA,
-                            "2020",
-                            "Teshaboyev",
-                            Language.RUS
-            );
-
-            bookRepo.save(book1Geografiya);
-            bookRepo.save(book2);
 
         }
     }
