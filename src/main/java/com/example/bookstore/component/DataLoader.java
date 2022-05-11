@@ -1,16 +1,14 @@
 package com.example.bookstore.component;
 
-import com.example.bookstore.models.Book;
 import com.example.bookstore.models.Role;
 import com.example.bookstore.models.Userss;
 import com.example.bookstore.models.enums.*;
 import com.example.bookstore.repository.BookRepo;
 import com.example.bookstore.repository.RoleRepository;
 import com.example.bookstore.repository.UserRepo;
+import com.example.bookstore.service.AuthService;
 import com.example.bookstore.service.BookService;
-import com.example.bookstore.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,7 +27,7 @@ public class DataLoader implements CommandLineRunner {
      */
     final PasswordEncoder passwordEncoder;
 
-    final UserService userService;
+    final AuthService authService;
     final UserRepo userRepo;
     final RoleRepository roleRepository;
     final BookRepo bookRepo;
@@ -54,11 +52,19 @@ public class DataLoader implements CommandLineRunner {
             Set<AplicationUserPermission> permissionList = ApplicationUserRole.SUPER_ADMIN.getPermissions();
             super_admin.setPermissionEnum(permissionList);
             roleRepository.save(super_admin);
+
+            Role user = new Role();
+            user.setRoleName(ApplicationUserRole.SUPER_ADMIN);
+            Set<AplicationUserPermission> permissionListUser = ApplicationUserRole.USER.getPermissions();
+            user.setPermissionEnum(permissionListUser);
+            roleRepository.save(user);
+
+
             List<Role> admin1 = new ArrayList<>(Arrays.asList(admin));
             List<Role> superAdmin = new ArrayList<>(Arrays.asList(super_admin));
+            List<Role> userList = new ArrayList<>(Arrays.asList(user));
 
-            Userss userService1 = userService.addForDataloader(
-
+            Userss userService1 = authService.addForDataloader(
                     "admin123@gmail.com",
                     passwordEncoder.encode( "123"),
                     "admin",
@@ -67,7 +73,7 @@ public class DataLoader implements CommandLineRunner {
                     admin1);
             userRepo.save(userService1);
 
-            Userss userss = userService.addForDataloader(
+            Userss userss = authService.addForDataloader(
                     "superAdmin@gmail.com",
                     passwordEncoder.encode( "root1234"),
                     "super",
@@ -75,6 +81,15 @@ public class DataLoader implements CommandLineRunner {
                     "admin123",
                     superAdmin);
             userRepo.save(userss);
+
+            Userss user1 = authService.addForDataloader(
+                    "user@gmail.com",
+                    passwordEncoder.encode( "simpleUser"),
+                    "user",
+                    "user2",
+                    "user3",
+                    userList);
+            userRepo.save(user1);
 
         }
     }

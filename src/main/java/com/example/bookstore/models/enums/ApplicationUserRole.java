@@ -16,7 +16,8 @@ public enum ApplicationUserRole {
     ADMIN(Sets.newHashSet(AplicationUserPermission.READ_BOOK,
                          AplicationUserPermission.UPDATE_BOOK,
                          AplicationUserPermission.CREATE_BOOK)),
-    SUPER_ADMIN(Sets.newHashSet(AplicationUserPermission.READ_BOOK,AplicationUserPermission.DELETE_BOOK));
+    SUPER_ADMIN(Sets.newHashSet(AplicationUserPermission.READ_BOOK,AplicationUserPermission.DELETE_BOOK)),
+    USER(Sets.newHashSet(AplicationUserPermission.READ_BOOK));
     private Set<AplicationUserPermission> permissions;
 
 
@@ -24,7 +25,7 @@ public enum ApplicationUserRole {
     public Set<ApplicationUserRole> applicationUserRoles() {
         Set<ApplicationUserRole> roleList = new HashSet<ApplicationUserRole>(
                 Arrays.asList(
-                        ApplicationUserRole.SUPER_ADMIN,ApplicationUserRole.ADMIN));
+                        ApplicationUserRole.SUPER_ADMIN,ApplicationUserRole.ADMIN,ApplicationUserRole.USER));
         return roleList;
     }
 }

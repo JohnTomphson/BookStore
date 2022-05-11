@@ -11,4 +11,5 @@ public class BookDTO {
     private Integer sinfId;
     private Integer categoryId;
     private Integer languageId;
+    private Long attachmentId;
 }
