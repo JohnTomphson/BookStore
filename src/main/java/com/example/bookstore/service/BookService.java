@@ -24,6 +24,11 @@ public class BookService implements Crud {
     final AttachmentRepo attachmentRepo;
 
 
+    /**
+     * Method that gets all info of book.
+     *
+     * @return ApiResponse
+     */
     @Override
     public ApiResponse getAll() {
         List<Book> bookList = bookRepo.findAllByActiveTrue();
@@ -31,6 +36,14 @@ public class BookService implements Crud {
                 : new ApiResponse(false, "Failed");
     }
 
+
+
+    /**
+     * Method that gets only one info of book.
+     *
+     * @param id
+     * @return ApiResponse
+     */
     @Override
     public ApiResponse getById(Long id) {
         Optional<Book> bookOptional = bookRepo.findById(id);
@@ -38,6 +51,16 @@ public class BookService implements Crud {
                 .orElseGet(() -> new ApiResponse(false, "Not Found"));
     }
 
+
+
+
+    /**
+     * Method that add info of book by id.
+     *
+     *
+     * @param bookDTO
+     * @return ApiResponse
+     */
     public ApiResponse add(BookDTO bookDTO) {
         Book book = new Book();
         if (bookDTO.getLanguageId().equals(1))
@@ -112,6 +135,15 @@ public class BookService implements Crud {
     }
 
 
+
+
+    /**
+     * Method that update info of book by id.
+     *
+     * @param id
+     * @param bookDTO
+     * @return ApiResponse
+     */
     public ApiResponse update(Long id, BookDTO bookDTO) {
         Optional<Book> bookOptional = bookRepo.findById(id);
         if (!bookOptional.isPresent())
@@ -189,6 +221,16 @@ public class BookService implements Crud {
 
     }
 
+
+
+
+    /**
+     * Method that edit active to inactive by id.
+     * Rule: Inactive data is not displayed to Web Browser or Postman
+     *
+     * @param id
+     * @return ApiResponse
+     */
     @Override
     public ApiResponse delete(Long id) {
         Optional<Book> optionalBook = bookRepo.findById(id);

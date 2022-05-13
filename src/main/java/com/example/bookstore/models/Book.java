@@ -27,10 +27,10 @@ public class Book {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private String discription;
 
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private String avtor;
 
     @Enumerated(EnumType.STRING)

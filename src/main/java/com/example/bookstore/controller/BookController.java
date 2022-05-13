@@ -29,6 +29,11 @@ public class BookController implements CrudController {
     final BookRepo bookRepo;
 
 
+    /**
+     * Method that gets all info of book.
+     *
+     * @return ResponseEntity
+     */
     @Override
     @GetMapping
     public ResponseEntity getAll() {
@@ -37,6 +42,12 @@ public class BookController implements CrudController {
     }
 
 
+    /**
+     * Method that gets only one info of book.
+     *
+     * @param id
+     * @return ResponseEntity
+     */
     @Override
     @GetMapping("/{id}")
     public ResponseEntity getInfoBookById(Long id) {
@@ -45,6 +56,13 @@ public class BookController implements CrudController {
     }
 
 
+    /**
+     * Method that extracting
+     * the id file belonging to the book.
+     *
+     * @param id
+     * @return
+     */
     @Override
     @GetMapping("/file/{id}")
     public ResponseEntity getFileById(@PathVariable Long id) {
@@ -56,6 +74,14 @@ public class BookController implements CrudController {
                 .body(attechment.getBytes());
     }
 
+
+    /**
+     * Method that upload only pdf file in Database
+     *
+     * @param request
+     * @return
+     * @throws IOException
+     */
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/upload/file")
     public Long saveFile(MultipartHttpServletRequest request) throws IOException {
@@ -80,6 +106,12 @@ public class BookController implements CrudController {
     }
 
 
+    /**
+     * Method that add info of book.
+     *
+     * @param bookDTO
+     * @return
+     */
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/info")
     public ResponseEntity addBookInfo(@RequestBody BookDTO bookDTO) {
@@ -87,6 +119,13 @@ public class BookController implements CrudController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 201 : 409).build();
     }
 
+    /**
+     * Method that update info of book by id.
+     *
+     * @param id
+     * @param bookDTO
+     * @return
+     */
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity updateInfo(@PathVariable Long id, @RequestBody BookDTO bookDTO) {
@@ -94,6 +133,13 @@ public class BookController implements CrudController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 202 : 409).body(apiResponse);
     }
 
+    /**
+     * Method that edit active to inactive by id.
+     * Rule: Inactive data is not displayed to Web Browser or Postman
+     *
+     * @param id
+     * @return
+     */
     @PreAuthorize("hasAnyAuthority('SUPER_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Long id) {

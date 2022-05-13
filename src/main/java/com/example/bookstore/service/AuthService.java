@@ -17,11 +17,29 @@ public class AuthService implements UserDetailsService {
 
     private final UserRepo userRepository;
 
+
+    /**
+     *
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
     }
+
+    /**
+     *
+     * @param userName
+     * @param password
+     * @param firstName
+     * @param middleName
+     * @param lastName
+     * @param roleList
+     * @return
+     */
     public Userss addForDataloader(
             String userName,
             String password,

@@ -28,6 +28,10 @@ public enum Category {
 
     private final String categoryId;
 
+    /**
+     *
+     * @return
+     */
     @Bean
     public List<Category> categoryListList() {
         List<Category> categoryList = new ArrayList<Category>(

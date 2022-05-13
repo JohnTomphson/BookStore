@@ -14,7 +14,12 @@ public class JwtProvider {
     @Value("${jwt.expireTime}")
     private long expire;
 
-    
+
+    /**
+     *
+     * @param username
+     * @return
+     */
     public String generateToken(String username) {
         return Jwts.builder()
                 .signWith(SignatureAlgorithm.HS512,secretKey)
@@ -24,6 +29,11 @@ public class JwtProvider {
                 .compact();
     }
 
+    /**
+     *
+     * @param token
+     * @return
+     */
     public String getUsernameFromToken(String token) {
         return Jwts.parser()
                 .setSigningKey(secretKey)
@@ -32,6 +42,11 @@ public class JwtProvider {
                 .getSubject();
     }
 
+    /**
+     *
+     * @param token
+     * @return
+     */
     public boolean expireToken(String token) {
         try {
 
@@ -47,6 +62,11 @@ public class JwtProvider {
         }
     }
 
+    /**
+     *
+     * @param token
+     * @return
+     */
     public boolean validateToken(String token) {
         try {
             Jwts

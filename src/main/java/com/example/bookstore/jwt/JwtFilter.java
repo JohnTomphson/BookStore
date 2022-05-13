@@ -21,6 +21,15 @@ public class JwtFilter extends OncePerRequestFilter {
     final JwtProvider jwtProvider;
     final AuthService authService;
 
+    /**
+     *
+     *
+     * @param request
+     * @param response
+     * @param filterChain
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if (!request.getRequestURI().startsWith("/apiBookStore/auth/")) {

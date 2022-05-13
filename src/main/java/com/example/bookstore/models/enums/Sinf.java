@@ -23,6 +23,13 @@ public enum Sinf {
     Sinf(String classs) {
         this.classs = classs;
     }
+
+
+
+    /**
+     *
+     * @return
+     */
     @Bean
     public List<Sinf> sinfList() {
         List<Sinf> sinfs = new ArrayList<Sinf>

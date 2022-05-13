@@ -22,9 +22,7 @@ import java.util.Set;
 @Component
 @RequiredArgsConstructor
 public class DataLoader implements CommandLineRunner {
-    /**
-     * Problem: Delete book
-     */
+
     final PasswordEncoder passwordEncoder;
 
     final AuthService authService;
@@ -32,10 +30,19 @@ public class DataLoader implements CommandLineRunner {
     final RoleRepository roleRepository;
     final BookRepo bookRepo;
     final BookService bookService;
+
+
+    /**
+     *
+     */
     @Value("${spring.sql.init.mode}")
     String mode;
 
 
+    /**
+     *
+     * @param args
+     */
     @Override
     public void run(String... args){
 

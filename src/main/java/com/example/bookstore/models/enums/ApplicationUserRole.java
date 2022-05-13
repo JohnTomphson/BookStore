@@ -21,6 +21,10 @@ public enum ApplicationUserRole {
     private Set<AplicationUserPermission> permissions;
 
 
+    /**
+     *
+     * @return
+     */
     @Bean
     public Set<ApplicationUserRole> applicationUserRoles() {
         Set<ApplicationUserRole> roleList = new HashSet<ApplicationUserRole>(

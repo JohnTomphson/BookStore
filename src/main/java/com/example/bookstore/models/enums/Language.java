@@ -15,6 +15,11 @@ import java.util.List;
 public enum Language {
     UZ("1"),RUS("2"),ENG("3"),QZ("4");
     private  final String languageId;
+
+    /**
+     *
+     * @return
+     */
     @Bean
     public List<Language> languageList() {
         List<Language> languageList = new ArrayList<Language>
